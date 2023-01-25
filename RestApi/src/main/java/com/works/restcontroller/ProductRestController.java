@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -22,6 +23,11 @@ public class ProductRestController {
         return productService.save(product);
     }
 
+    @PostMapping("/saveAll")
+    public ResponseEntity saveAll(@RequestBody List<Product> productList) {
+        return productService.productSaveAll(productList);
+    }
+
     @GetMapping("/list")
     public ResponseEntity list() {
         return productService.list();
@@ -33,8 +39,18 @@ public class ProductRestController {
     }
 
     @GetMapping("/singleParam")
-    public ResponseEntity singleParam( @RequestParam(defaultValue = "1") String pid ) {
+    public ResponseEntity singleParam( @RequestParam( defaultValue = "1") String pid ) {
         return productService.single(pid);
+    }
+
+    @DeleteMapping("/delete/{stringPid}")
+    public ResponseEntity delete( @PathVariable(name = "stringPid") String stPid ) {
+        return productService.delete(stPid);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity update( @Valid @RequestBody Product product ) {
+        return productService.update(product);
     }
 
 }

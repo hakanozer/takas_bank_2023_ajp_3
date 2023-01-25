@@ -1,18 +1,17 @@
 package com.works.service;
 
 import com.works.entities.Product;
+import com.works.repositories.ProductJoinCatRepository;
 import com.works.repositories.ProductRepository;
 import com.works.utils.REnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLIntegrityConstraintViolationException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -21,6 +20,7 @@ public class ProductService {
     //@Autowired
     //ProductRepository productRepository;
     final ProductRepository productRepository;
+    final ProductJoinCatRepository productJoinCatRepository;
 
     // product Save
     public ResponseEntity save(Product product) {
@@ -41,10 +41,20 @@ public class ProductService {
 
     }
 
+    // product save all
+    public ResponseEntity productSaveAll( List<Product> productList ) {
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+        productRepository.saveAll( productList );
+        hm.put(REnum.status, true);
+        hm.put(REnum.result, productList);
+        return new ResponseEntity(hm, HttpStatus.OK);
+    }
+
     public ResponseEntity<Map> list() {
         Map<REnum, Object> hm = new LinkedHashMap<>();
         hm.put(REnum.status, true);
-        hm.put(REnum.result, productRepository.findAll());
+        //hm.put(REnum.result, productRepository.findAll());
+        hm.put(REnum.result, productJoinCatRepository.allProCat(1) );
         return new ResponseEntity(hm, HttpStatus.OK);
     }
 
@@ -61,6 +71,36 @@ public class ProductService {
         }catch (Exception ex) {}
         hm.put(REnum.status, true);
         hm.put(REnum.errors, "Not Found : " + stringPid );
+        return new ResponseEntity(hm, HttpStatus.BAD_REQUEST);
+    }
+
+
+    public ResponseEntity delete( String stringPid ) {
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+        try {
+            long pid = Long.parseLong(stringPid);
+            productRepository.deleteById(pid);
+            hm.put(REnum.status, true);
+            hm.put(REnum.result, "success");
+            return new ResponseEntity(hm, HttpStatus.OK);
+        }catch (Exception ex) {
+            hm.put(REnum.status, false);
+            hm.put(REnum.errors, "Not Found : " + stringPid );
+            return new ResponseEntity(hm, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    public ResponseEntity update( Product product ) {
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+        boolean status = productRepository.existsByPidEquals(product.getPid());
+        if ( status ) {
+            productRepository.saveAndFlush(product);
+            hm.put(REnum.status, true);
+            hm.put(REnum.result, product);
+            return new ResponseEntity(hm, HttpStatus.OK);
+        }
+        hm.put(REnum.status, false);
+        hm.put(REnum.errors, "Not Found :" + product.getPid());
         return new ResponseEntity(hm, HttpStatus.BAD_REQUEST);
     }
 

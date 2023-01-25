@@ -1,6 +1,8 @@
 package com.works.entities;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -8,10 +10,12 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Data
+@Setter
+@Getter
 public class Product {
 
     @Id
@@ -36,5 +40,8 @@ public class Product {
     @Min(1)
     @NotNull
     private Integer price;
+
+    @ManyToMany
+    List<Category> categories;
 
 }
