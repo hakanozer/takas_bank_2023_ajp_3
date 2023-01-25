@@ -29,8 +29,8 @@ public class ProductRestController {
     }
 
     @GetMapping("/list")
-    public ResponseEntity list() {
-        return productService.list();
+    public ResponseEntity list(@RequestParam(defaultValue = "1") Long cid) {
+        return productService.list(cid);
     }
 
     @GetMapping("/single/{stringPid}")
@@ -51,6 +51,11 @@ public class ProductRestController {
     @PutMapping("/update")
     public ResponseEntity update( @Valid @RequestBody Product product ) {
         return productService.update(product);
+    }
+
+    @GetMapping("/pageList")
+    public ResponseEntity pageList( @RequestParam(defaultValue = "0") int pageCount ) {
+        return productService.pageList(pageCount);
     }
 
 }

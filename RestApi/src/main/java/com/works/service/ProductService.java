@@ -1,10 +1,15 @@
 package com.works.service;
 
 import com.works.entities.Product;
+import com.works.projections.IProJoinCat;
 import com.works.repositories.ProductJoinCatRepository;
 import com.works.repositories.ProductRepository;
 import com.works.utils.REnum;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -50,11 +55,24 @@ public class ProductService {
         return new ResponseEntity(hm, HttpStatus.OK);
     }
 
-    public ResponseEntity<Map> list() {
+    public ResponseEntity<Map> list(Long cid) {
         Map<REnum, Object> hm = new LinkedHashMap<>();
         hm.put(REnum.status, true);
         //hm.put(REnum.result, productRepository.findAll());
-        hm.put(REnum.result, productJoinCatRepository.allProCat(1) );
+        //hm.put(REnum.result, productJoinCatRepository.allProCat(1) );
+        hm.put(REnum.result, productRepository.allProJoin(cid) );
+        return new ResponseEntity(hm, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Map> pageList( int pageCount ) {
+        Map<REnum, Object> hm = new LinkedHashMap<>();
+        hm.put(REnum.status, true);
+
+        Sort sort = Sort.by("price").ascending();
+        Pageable pageable = PageRequest.of(pageCount, 5, sort );
+        //Page<Product> list = productRepository.findAll(pageable);
+        Page<IProJoinCat> list = productRepository.allPageProJoin(1l,pageable );
+        hm.put(REnum.result, list );
         return new ResponseEntity(hm, HttpStatus.OK);
     }
 
