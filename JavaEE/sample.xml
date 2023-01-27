@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<products>
+    <product>
+        <pid>0</pid>
+        <title>Title - 0</title>
+        <price/>
+        <category>
+            <cid>0</cid>
+            <name>Cat - 0</name>
+        </category>
+    </product>
+    <product>
+        <pid>1</pid>
+        <title>Title - 1</title>
+        <price/>
+        <category>
+            <cid>2</cid>
+            <name>Cat - 1</name>
+        </category>
+    </product>
+    <product>
+        <pid>2</pid>
+        <title>Title - 2</title>
+        <price>10</price>
+        <category>
+            <cid>4</cid>
+            <name>Cat - 2</name>
+        </category>
+    </product>
+    <product>
+        <pid>3</pid>
+        <title>Title - 3</title>
+        <price>20</price>
+        <category>
+            <cid>6</cid>
+            <name>Cat - 3</name>
+        </category>
+    </product>
+    <product>
+        <pid>4</pid>
+        <title>Title - 4</title>
+        <price>0</price>
+        <category>
+            <cid>8</cid>
+            <name>Cat - 4</name>
+        </category>
+    </product>
+    <product>
+        <pid>5</pid>
+        <title>Title - 5</title>
+        <price>0</price>
+        <category>
+            <cid>10</cid>
+            <name>Cat - 5</name>
+        </category>
+    </product>
+    <product>
+        <pid>6</pid>
+        <title>Title - 6</title>
+        <price>0</price>
+        <category>
+            <cid>12</cid>
+            <name>Cat - 6</name>
+        </category>
+    </product>
+    <product>
+        <pid>7</pid>
+        <title>Title - 7</title>
+        <price>0</price>
+        <category>
+            <cid>14</cid>
+            <name>Cat - 7</name>
+        </category>
+    </product>
+    <product>
+        <pid>8</pid>
+        <title>Title - 8</title>
+        <price>0</price>
+        <category>
+            <cid>16</cid>
+            <name>Cat - 8</name>
+        </category>
+    </product>
+    <product>
+        <pid>9</pid>
+        <title>Title - 9</title>
+        <price>0</price>
+        <category>
+            <cid>18</cid>
+            <name>Cat - 9</name>
+        </category>
+    </product>
+</products>
