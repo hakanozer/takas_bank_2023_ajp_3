@@ -3,6 +3,7 @@ package useParalel;
 import java.util.List;
 
 public class MainStream {
+    static int count = 0;
     public static void main(String[] args) {
 
         Result result = new Result();
@@ -16,8 +17,11 @@ public class MainStream {
             try {
                 Thread.sleep(20);
             }catch (Exception ex) {}
-            System.out.println(item.getName());
+            count++;
+            System.out.println( count + " - " +  item.getName());
         });
+
+        //ls.parallelStream().filter(item -> item.getAge() > 0).parallel();
         long end = System.currentTimeMillis();
         long beetween = end - start;
         System.out.println("beetween Stream : " + beetween);
